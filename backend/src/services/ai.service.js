@@ -312,32 +312,19 @@ ${jobDescription}
 
 }
 
+const html_to_pdf = require("html-pdf-node");
+
 async function generatePdfFromHtml(htmlContent) {
-
-    const browser = await puppeteer.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath(),
-        headless: true,
-    });
-
-    const page = await browser.newPage();
-
-    await page.setContent(htmlContent, {
-        waitUntil: "networkidle0",
-    });
-
-    const pdfBuffer = await page.pdf({
+    const options = {
         format: "A4",
         printBackground: true,
-        margin: {
-            top: "20mm",
-            bottom: "20mm",
-            left: "15mm",
-            right: "15mm",
-        },
-    });
+    };
 
-    await browser.close();
+    const file = {
+        content: htmlContent,
+    };
+
+    const pdfBuffer = await html_to_pdf.generatePdf(file, options);
 
     return pdfBuffer;
 }
