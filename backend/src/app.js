@@ -28,6 +28,9 @@ const interviewRouter = require("./routes/interview.routes")
 app.use("/api/auth", authRouter)
 app.use("/api/interview", interviewRouter)
 
+app.get("/", (req, res) => {
+    res.send("AI Interview Coach Backend is Running 🚀");
+});
 
 
 module.exports = app
