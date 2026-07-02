@@ -1,7 +1,6 @@
 const Groq = require("groq-sdk");
 const { z } = require("zod");
-const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium");
+const html_to_pdf = require("html-pdf-node");
 const generateResumeHTML = require("../templates/resume.template");
 
 const groq = new Groq({
@@ -312,7 +311,7 @@ ${jobDescription}
 
 }
 
-const html_to_pdf = require("html-pdf-node");
+
 
 async function generatePdfFromHtml(htmlContent) {
     const options = {
