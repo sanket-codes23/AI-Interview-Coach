@@ -10,6 +10,15 @@ const interviewReportModel = require("../models/interviewReport.model")
  */
 async function generateInterViewReportController(req, res) {
 
+     if (!req.file) {
+    console.log("Headers:", req.headers["content-type"]);
+    console.log("Body:", req.body);
+
+    return res.status(400).json({
+        message: "Resume file not received."
+    });
+}
+
     const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
     const { selfDescription, jobDescription } = req.body
 
