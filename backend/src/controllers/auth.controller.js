@@ -42,25 +42,28 @@ async function registerUserController(req, res) {
         { expiresIn: "1d" }
     )
 
+    
+    console.log("Protocol:", req.protocol);
+console.log("Secure:", req.secure);
+console.log("X-Forwarded-Proto:", req.headers["x-forwarded-proto"]);
+
     res.cookie("token", token, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
-    maxAge: 24 * 60 * 60 * 1000
+    sameSite: "none",
+    maxAge: 24 * 60 * 60 * 1000,
+    path: "/"
 });
 
-
-    res.status(201).json({
-        message: "User registered successfully",
-        user: {
-            id: user._id,
-            username: user.username,
-            email: user.email
-        }
-    })
-
+return res.status(200).json({
+    message: "User loggedIn successfully.",
+    user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+    }
+});
 }
-
 
 /**
  * @name loginUserController
@@ -93,11 +96,16 @@ async function loginUserController(req, res) {
         { expiresIn: "1d" }
     )
 
+    console.log("Protocol:", req.protocol);
+console.log("Secure:", req.secure);
+console.log("X-Forwarded-Proto:", req.headers["x-forwarded-proto"]);
+
     res.cookie("token", token, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
-    maxAge: 24 * 60 * 60 * 1000
+    sameSite: "none",
+    maxAge: 24 * 60 * 60 * 1000,
+    path: "/"
 });
     res.status(200).json({
         message: "User loggedIn successfully.",
