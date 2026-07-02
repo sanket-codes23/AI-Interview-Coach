@@ -313,11 +313,12 @@ ${jobDescription}
 }
 
 async function generatePdfFromHtml(htmlContent) {
+
     const browser = await puppeteer.launch({
-    args: chromium.args,
-    executablePath: await chromium.executablePath(),
-    headless: chromium.headless,
-});
+        args: chromium.args,
+        executablePath: await chromium.executablePath(),
+        headless: true,
+    });
 
     const page = await browser.newPage();
 
